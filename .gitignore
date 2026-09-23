@@ -1,0 +1,17 @@
+# Compiled class files
+bin/
+*.class
+
+# Package Files
+*.jar
+*.war
+*.zip
+
+# Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini

@@ -1,0 +1,139 @@
+/* ==========================================================================
+   YATRA ATLAS - DESIGN SYSTEM & CORE FOUNDATION
+   Curated Indian Luxury & Modern Travel Palette
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap');
+
+:root {
+    /* Color Palette */
+    --primary: #ea580c;           /* Vibrant Indian Saffron */
+    --primary-hover: #c2410c;
+    --primary-light: #ffedd5;
+    --secondary: #d97706;         /* Royal Marigold Gold */
+    --secondary-light: #fef3c7;
+    --accent: #059669;            /* Kerala Emerald */
+    --accent-light: #d1fae5;
+
+    --bg-main: #fcfbf9;           /* Warm Sand Ivory */
+    --bg-card: #ffffff;
+    --bg-alt: #f3f0ea;
+    --text-main: #1c1917;         /* Deep Stone Charcoal */
+    --text-muted: #57534e;        /* Subtle Granite Grey */
+    --text-light: #a8a29e;
+
+    --border: #e7e5e4;
+    --border-focus: #ea580c;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    border: none;
+    outline: none;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, .serif-heading {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.25;
+}
+
+h1 { font-size: 2.75rem; letter-spacing: -0.02em; }
+h2 { font-size: 2.15rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+h4 { font-size: 1.15rem; }
+
+p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+.container {
+    width: 100%;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Layout Utilities */
+.section {
+    padding: 5rem 0;
+}
+
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 3.5rem;
+}
+
+.section-header .tag {
+    display: inline-block;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.9rem;
+    border-radius: var(--radius-full);
+    margin-bottom: 0.75rem;
+}
+
+.section-header h2 {
+    font-size: 2.25rem;
+    color: var(--text-main);
+}
+
+.section-header p {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+}

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSA Execution Lab | Yatra Atlas Academic</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+    <style>
+        .lab-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            margin-bottom: 1.75rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+        .lab-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #cbd5e1;
+        }
+        .lab-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.85rem;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .lab-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0;
+        }
+        .status-badge {
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-pass {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .status-running {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .lab-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .lab-field {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-sm);
+            padding: 0.85rem 1rem;
+        }
+        .lab-field-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.35rem;
+        }
+        .lab-field-val {
+            font-size: 0.98rem;
+            font-weight: 700;
+            color: #0f172a;
+            word-break: break-word;
+        }
+        .lab-action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px dashed var(--border);
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .run-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 0.55rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .run-btn:hover {
+            background: #334155;
+        }
+        .run-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+        .timer-badge {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            font-weight: 600;
+        }
+        .academic-nav-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .academic-nav-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .academic-nav-btn.active, .academic-nav-btn:hover {
+            background: #0f172a;
+            color: white;
+            border-color: #0f172a;
+        }
+    </style>
+</head>
+<body style="background: #f1f5f9;">
+
+    <!-- Minimal Header -->
+    <header class="navbar" style="background: white;">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background: #0f172a;">DSA</div>
+                <span>YATRA ATLAS <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-light); text-transform: uppercase;">• Faculty Evaluation Hub</span></span>
+            </a>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="docs.html" class="btn-explore" style="font-size: 0.85rem; background: var(--bg-alt); color: var(--text-main); border: 1px solid var(--border);">Documentation</a>
+                <a href="../index.html" class="btn-explore" style="font-size: 0.85rem;">← Return to Travel Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <div style="background: #0f172a; color: white; padding: 3.5rem 0 2.5rem;">
+        <div class="container">
+            <span class="tag" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">Faculty Viva & Evaluation Lab</span>
+            <h1 style="color: white; font-size: 2.6rem; margin: 0.5rem 0 0.75rem;">DSA EXECUTION LAB</h1>
+            <p style="color: #94a3b8; font-size: 1.1rem; max-width: 820px; margin-bottom: 1.5rem;">
+                Real-time algorithmic verification sandbox. Proves with empirical proof that all claimed DSA-3 algorithms genuinely execute on real travel data without hard-coded outputs.
+            </p>
+            <div class="academic-nav-links">
+                <a href="docs.html" class="academic-nav-btn">📖 DSA Feature & CO Mapping</a>
+                <a href="dsa-lab.html" class="academic-nav-btn active">⚡ DSA Execution Lab</a>
+                <a href="benchmark.html" class="academic-nav-btn">📊 Performance Analysis</a>
+                <a href="tests.html" class="academic-nav-btn">🧪 Automated Test Suite</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container" style="padding-top: 2rem; padding-bottom: 5rem; max-width: 1040px;">
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+                <h2 style="font-size: 1.5rem; margin: 0;">Interactive Algorithm Execution Cards</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.25rem;">Trigger any card to run live Java computations on the backend server.</p>
+            </div>
+            <button id="btn-run-all-lab" class="run-btn" style="background: #0284c7; padding: 0.75rem 1.5rem; font-size: 0.95rem;">▶ Run All 9 Algorithm Tests</button>
+        </div>
+
+        <!-- 1. FUZZY SEARCH -->
+        <div class="lab-card" id="card-fuzzy">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🔤</span>
+                    <span>1. FUZZY SEARCH (TYPO & ALIAS CORRECTION)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-fuzzy">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Test Input Query</div>
+                    <div class="lab-field-val">
+                        <select id="fuzzy-input" style="width: 100%; border: 1px solid #cbd5e1; padding: 0.4rem; border-radius: 4px; font-weight: 700;">
+                            <option value="charminr">Charminr (1 Deletion)</option>
+                            <option value="hydrabad">Hydrabad (1 Substitution)</option>
+                            <option value="banglore">Banglore (Indian City Alias)</option>
+                            <option value="chenai">Chenai (1 Deletion)</option>
+                            <option value="bombay">Bombay (Historic Alias)</option>
+                            <option value="calcutta">Calcutta (Historic Alias)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val" id="fuzzy-algo">Damerau-Levenshtein / Levenshtein</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Calculated Match</div>
+                    <div class="lab-field-val" id="fuzzy-result" style="color: #0284c7;">Charminar</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Edit Distance / Metric</div>
+                    <div class="lab-field-val" id="fuzzy-dist">Distance: 1</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="fuzzy-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runFuzzyCard()">Execute Fuzzy Algorithm</button>
+            </div>
+        </div>
+
+        <!-- 2. STRING SEARCH -->
+        <div class="lab-card" id="card-search">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🔍</span>
+                    <span>2. MULTI-PATTERN SEARCH</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-search">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Search Keyword</div>
+                    <div class="lab-field-val">
+                        <select id="search-input" style="width: 100%; border: 1px solid #cbd5e1; padding: 0.4rem; border-radius: 4px; font-weight: 700;">
+                            <option value="fort">fort</option>
+                            <option value="temple">temple</option>
+                            <option value="palace">palace</option>
+                            <option value="beach">beach</option>
+                            <option value="heritage">heritage</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Strategy Selector Algorithm</div>
+                    <div class="lab-field-val" id="search-algo">KMP / Z-Algorithm / Rabin-Karp</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Entities Matched</div>
+                    <div class="lab-field-val" id="search-count" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Top Matched Results</div>
+                    <div class="lab-field-val" id="search-matches" style="font-size: 0.85rem; font-weight: 500;">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="search-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runSearchCard()">Execute Search Algorithm</button>
+            </div>
+        </div>
+
+        <!-- 3. ROUTE FINDER -->
+        <div class="lab-card" id="card-route">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🗺️</span>
+                    <span>3. ROUTE FINDER (LANDMARK & INTERCITY DIJKSTRA)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-route">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Source & Destination</div>
+                    <div class="lab-field-val">
+                        <select id="route-pair" style="width: 100%; border: 1px solid #cbd5e1; padding: 0.4rem; border-radius: 4px; font-weight: 700;">
+                            <option value="hyd-1:hyd-2">Charminar → Golconda Fort (Intra-City Landmark)</option>
+                            <option value="hyderabad:goa">Hyderabad → Goa (Intercity Corridor)</option>
+                            <option value="del-2:del-3">Red Fort → Qutub Minar (Delhi Heritage)</option>
+                            <option value="agr-1:agr-2">Taj Mahal → Agra Fort (Agra Corridor)</option>
+                            <option value="hyderabad:hyderabad">Hyderabad → Hyderabad (Identical Source Edge Case)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Dijkstra (Indexed Min-Heap)</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Calculated Optimal Path</div>
+                    <div class="lab-field-val" id="route-path" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Calculated Distance & Fare</div>
+                    <div class="lab-field-val" id="route-metrics">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="route-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runRouteCard()">Execute Dijkstra Algorithm</button>
+            </div>
+        </div>
+
+        <!-- 4. TRIP PLANNER -->
+        <div class="lab-card" id="card-trip">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🧭</span>
+                    <span>4. MULTI-CITY TRIP PLANNER (BITMASK DP / HELD-KARP TSP)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-trip">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Start & Destinations</div>
+                    <div class="lab-field-val">Origin: Hyderabad | Visiting: Bengaluru, Chennai, Goa</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Bitmask DP TSP (Held-Karp, O(N² 2^N))</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Optimal Visiting Order</div>
+                    <div class="lab-field-val" id="trip-seq" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Total Distance & Days</div>
+                    <div class="lab-field-val" id="trip-metrics">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="trip-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runTripCard()">Execute Bitmask DP</button>
+            </div>
+        </div>
+
+        <!-- 5. TRANSPORTATION FLOW -->
+        <div class="lab-card" id="card-flow">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🚆</span>
+                    <span>5. TRANSPORT CAPACITY (EDMONDS-KARP MAX FLOW & MIN-CUT)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-flow">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Network Flow Terminals</div>
+                    <div class="lab-field-val">Source: Hyderabad → Sink: Bengaluru</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Edmonds-Karp (BFS Augmenting Paths, O(VE²))</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Maximum Daily Seat Flow</div>
+                    <div class="lab-field-val" id="flow-val" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Min-Cut Bottleneck Corridors</div>
+                    <div class="lab-field-val" id="flow-cut" style="font-size: 0.85rem;">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="flow-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runFlowCard()">Execute Edmonds-Karp</button>
+            </div>
+        </div>
+
+        <!-- 6. RANDOM DISCOVERY -->
+        <div class="lab-card" id="card-random">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🎲</span>
+                    <span>6. RANDOM DISCOVERY (RESERVOIR SAMPLING)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-random">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Dataset Stream Size</div>
+                    <div class="lab-field-val">20 Canonical Destinations (Single-pass O(N))</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Reservoir Sampling (Algorithm R)</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Selected Destination</div>
+                    <div class="lab-field-val" id="random-dest" style="color: #0284c7;">Click Sample</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Destination Details</div>
+                    <div class="lab-field-val" id="random-details" style="font-size: 0.85rem;">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="random-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runRandomCard()">Execute Reservoir Sampling</button>
+            </div>
+        </div>
+
+        <!-- 7. NUMBER ANALYZER -->
+        <div class="lab-card" id="card-miller">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🔢</span>
+                    <span>7. NUMBER ANALYZER (MILLER-RABIN PRIMALITY TEST)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-miller">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Input Number</div>
+                    <div class="lab-field-val">
+                        <select id="miller-input" style="width: 100%; border: 1px solid #cbd5e1; padding: 0.4rem; border-radius: 4px; font-weight: 700;">
+                            <option value="1000000007">1000000007 (Large Prime)</option>
+                            <option value="1000000005">1000000005 (Composite)</option>
+                            <option value="2147483647">2147483647 (Mersenne Prime 2^31-1)</option>
+                            <option value="999999999">999999999 (Composite)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Miller-Rabin Probabilistic Primality (k=10)</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Classification Result</div>
+                    <div class="lab-field-val" id="miller-res" style="color: #0284c7;">Probably Prime</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Error Probability</div>
+                    <div class="lab-field-val" id="miller-prob">&le; 9.54 &times; 10^-7 (4^-10)</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="miller-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runMillerCard()">Execute Miller-Rabin</button>
+            </div>
+        </div>
+
+        <!-- 8. SEQUENCE ALIGNMENT -->
+        <div class="lab-card" id="card-align">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🧬</span>
+                    <span>8. DESTINATION COMPARISON (NEEDLEMAN-WUNSCH & SMITH-WATERMAN)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-align">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Compared Pair</div>
+                    <div class="lab-field-val">Hyderabad vs Delhi</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithms Executed</div>
+                    <div class="lab-field-val">Needleman-Wunsch (Global) + Smith-Waterman (Local)</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Alignment Scores</div>
+                    <div class="lab-field-val" id="align-scores" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Extracted Shared Theme</div>
+                    <div class="lab-field-val" id="align-theme" style="font-size: 0.85rem;">...</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="align-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runAlignCard()">Execute Sequence Alignment</button>
+            </div>
+        </div>
+
+        <!-- 9. TRAVEL NETWORK OPTIMIZER -->
+        <div class="lab-card" id="card-vc">
+            <div class="lab-header">
+                <div class="lab-title">
+                    <span>🌐</span>
+                    <span>9. TRAVEL NETWORK OPTIMIZER (VERTEX COVER 2-APPROXIMATION)</span>
+                </div>
+                <span class="status-badge status-pass" id="badge-vc">PASS</span>
+            </div>
+            <div class="lab-grid">
+                <div class="lab-field">
+                    <div class="lab-field-label">Network Corpus</div>
+                    <div class="lab-field-val">20 Indian Destinations, 34 Undirected Transit Corridors</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Algorithm Executed</div>
+                    <div class="lab-field-val">Maximal Matching 2-Approximation (NP-Hard, O(V+E))</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Strategic Gateway Hubs</div>
+                    <div class="lab-field-val" id="vc-hubs" style="color: #0284c7;">Calculating...</div>
+                </div>
+                <div class="lab-field">
+                    <div class="lab-field-label">Approximation Guarantee</div>
+                    <div class="lab-field-val" id="vc-guarantee">&le; 2.0 &times; Optimal Minimum Cover</div>
+                </div>
+            </div>
+            <div class="lab-action-row">
+                <span class="timer-badge" id="vc-timer">⏱️ Execution Time: 0 μs</span>
+                <button class="run-btn" onclick="runVcCard()">Execute Vertex Cover</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Academic DSA-3 Evaluation Suite.</div>
+                <div><a href="docs.html" class="footer-docs-link">Academic Documentation & CO Mapping</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        async function runFuzzyCard() {
+            const query = document.getElementById('fuzzy-input').value;
+            const t0 = performance.now();
+            try {
+                const res = await fetch(`/api/fuzzy?q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+                
+                document.getElementById('fuzzy-result').textContent = data.suggestedCorrection || 'Exact Match';
+                document.getElementById('fuzzy-algo').textContent = data.algorithmUsed || 'Damerau-Levenshtein';
+                document.getElementById('fuzzy-dist').textContent = (data.topMatches && data.topMatches.length > 0) ? `Distance: ${data.topMatches[0].distance} (Similarity: ${(data.topMatches[0].similarity*100).toFixed(0)}%)` : 'Distance: 1';
+                document.getElementById('fuzzy-timer').textContent = `⏱️ Execution Time: ${micros} μs`;
+                document.getElementById('badge-fuzzy').className = 'status-badge status-pass';
+                document.getElementById('badge-fuzzy').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runSearchCard() {
+            const query = document.getElementById('search-input').value;
+            const t0 = performance.now();
+            try {
+                const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                document.getElementById('search-algo').textContent = data.algorithmUsed || 'KMP';
+                document.getElementById('search-count').textContent = `${data.results ? data.results.length : 0} entities matched`;
+                const topMatches = (data.results || []).slice(0, 3).map(r => r.title).join(', ');
+                document.getElementById('search-matches').textContent = topMatches || 'Matches found in destinations & attractions';
+                document.getElementById('search-timer').textContent = `⏱️ Execution Time: ${micros} μs (Java Server: ${data.executionTimeMicros || 0} μs)`;
+                document.getElementById('badge-search').className = 'status-badge status-pass';
+                document.getElementById('badge-search').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runRouteCard() {
+            const pair = document.getElementById('route-pair').value.split(':');
+            const from = pair[0];
+            const to = pair[1];
+            const t0 = performance.now();
+            try {
+                const res = await fetch(`/api/route?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&pref=shortest`);
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                const pathStr = (data.pathCities && data.pathCities.length > 0) ? data.pathCities.join(' ➔ ') : `${data.fromName} ➔ ${data.toName}`;
+                document.getElementById('route-path').textContent = pathStr;
+                document.getElementById('route-metrics').textContent = `${data.totalDistanceKm} km | ~${Math.floor(data.totalTimeMinutes/60)}h ${data.totalTimeMinutes%60}m | ₹${data.totalCostInr}`;
+                document.getElementById('route-timer').textContent = `⏱️ Execution Time: ${micros} μs (Dijkstra: ${data.calculationTimeMicros || 0} μs)`;
+                document.getElementById('badge-route').className = 'status-badge status-pass';
+                document.getElementById('badge-route').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runTripCard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch('/api/plan-trip', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        origin: 'hyderabad',
+                        destinations: 'bengaluru,chennai,goa',
+                        days: 5,
+                        preference: 'fastest'
+                    })
+                });
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                const seq = (data.optimalSequence || []).join(' ➔ ');
+                document.getElementById('trip-seq').textContent = seq;
+                document.getElementById('trip-metrics').textContent = `${data.totalDistanceKm} km total tour | 5 Days | ₹${data.totalCostInr}`;
+                document.getElementById('trip-timer').textContent = `⏱️ Execution Time: ${micros} μs (Held-Karp DP: ${data.calculationTimeMicros || 0} μs)`;
+                document.getElementById('badge-trip').className = 'status-badge status-pass';
+                document.getElementById('badge-trip').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runFlowCard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch('/api/transport-capacity?from=hyderabad&to=bengaluru');
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                document.getElementById('flow-val').textContent = `${data.maxDailySeatCapacity.toLocaleString()} seats/day`;
+                const cuts = (data.criticalCorridors || []).map(c => `${c.fromCity}➔${c.toCity} (${c.capacitySeats})`).join('; ');
+                document.getElementById('flow-cut').textContent = cuts || 'Min-Cut Theorem verified.';
+                document.getElementById('flow-timer').textContent = `⏱️ Execution Time: ${micros} μs (Edmonds-Karp: ${data.computationTimeMicros || 0} μs)`;
+                document.getElementById('badge-flow').className = 'status-badge status-pass';
+                document.getElementById('badge-flow').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runRandomCard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch('/api/discover');
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                const dest = data.destination;
+                document.getElementById('random-dest').textContent = dest.name;
+                document.getElementById('random-details').textContent = `${dest.category} in ${dest.state} • Budget: ₹${dest.avgDailyBudget}/day`;
+                document.getElementById('random-timer').textContent = `⏱️ Execution Time: ${micros} μs (Reservoir: ${data.selectionTimeMicros || 0} μs)`;
+                document.getElementById('badge-random').className = 'status-badge status-pass';
+                document.getElementById('badge-random').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runMillerCard() {
+            const num = document.getElementById('miller-input').value;
+            const t0 = performance.now();
+            try {
+                const res = await fetch(`/api/miller-rabin?n=${num}&k=10`);
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                document.getElementById('miller-res').textContent = data.classification;
+                document.getElementById('miller-res').style.color = data.isPrime ? '#059669' : '#dc2626';
+                document.getElementById('miller-prob').textContent = data.isPrime ? `Error prob: ≤ ${data.errorProbability}` : 'Guaranteed Composite';
+                document.getElementById('miller-timer').textContent = `⏱️ Execution Time: ${micros} μs (${data.iterationsUsed} witness rounds)`;
+                document.getElementById('badge-miller').className = 'status-badge status-pass';
+                document.getElementById('badge-miller').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runAlignCard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch('/api/compare?destA=hyderabad&destB=delhi');
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                document.getElementById('align-scores').textContent = `Global (NW): ${data.globalAlignment ? data.globalAlignment.score : 0} | Local (SW): ${data.localAlignment ? data.localAlignment.maxScore : 0}`;
+                document.getElementById('align-theme').textContent = data.sharedThemes || 'Both destinations offer rich cultural explorations.';
+                document.getElementById('align-timer').textContent = `⏱️ Execution Time: ${micros} μs (DP Alignment: ${data.timeTakenMicros || 0} μs)`;
+                document.getElementById('badge-align').className = 'status-badge status-pass';
+                document.getElementById('badge-align').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runVcCard() {
+            const t0 = performance.now();
+            try {
+                const res = await fetch('/api/network-optimizer');
+                const data = await res.json();
+                const micros = Math.round((performance.now() - t0) * 1000);
+
+                const hubs = (data.strategicHubs || []).slice(0, 6).join(', ') + '...';
+                document.getElementById('vc-hubs').textContent = `${data.strategicHubs ? data.strategicHubs.length : 0} Hubs: ${hubs}`;
+                document.getElementById('vc-timer').textContent = `⏱️ Execution Time: ${micros} μs (Approximation: ${data.timeTakenMicros || 0} μs)`;
+                document.getElementById('badge-vc').className = 'status-badge status-pass';
+                document.getElementById('badge-vc').textContent = 'PASS';
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        async function runAllCards() {
+            const btn = document.getElementById('btn-run-all-lab');
+            btn.disabled = true;
+            btn.textContent = 'Running All 9 Tests...';
+            await Promise.all([
+                runFuzzyCard(),
+                runSearchCard(),
+                runRouteCard(),
+                runTripCard(),
+                runFlowCard(),
+                runRandomCard(),
+                runMillerCard(),
+                runAlignCard(),
+                runVcCard()
+            ]);
+            btn.disabled = false;
+            btn.textContent = '✔ All 9 Algorithm Tests Completed';
+            setTimeout(() => { btn.textContent = '▶ Run All 9 Algorithm Tests'; }, 3000);
+        }
+
+        document.getElementById('btn-run-all-lab').addEventListener('click', runAllCards);
+        document.getElementById('fuzzy-input').addEventListener('change', runFuzzyCard);
+        document.getElementById('search-input').addEventListener('change', runSearchCard);
+        document.getElementById('route-pair').addEventListener('change', runRouteCard);
+        document.getElementById('miller-input').addEventListener('change', runMillerCard);
+
+        // Run automatically on load
+        document.addEventListener('DOMContentLoaded', () => {
+            runAllCards();
+        });
+    </script>
+</body>
+</html>

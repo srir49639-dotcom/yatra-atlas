@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attractions Across India | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link active">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Curated Landmarks</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">ICONIC ATTRACTIONS</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Explore over 70 world-famous forts, UNESCO monuments, tranquil ghats, and mountain valleys.</p>
+
+            <div style="max-width: 600px; margin: 0 auto; display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+                <input type="text" id="attraction-search" class="search-input" placeholder="Search by landmark name (e.g. Fort, Temple, Minar, Cave)..." style="background: white; border: 1px solid var(--border); padding: 0.75rem 1.25rem; border-radius: var(--radius-full); width: 100%; max-width: 400px; box-shadow: var(--shadow-sm);">
+                <select id="attraction-city-filter" style="padding: 0.75rem 1.25rem; border-radius: var(--radius-full); border: 1px solid var(--border); background: white; font-weight: 600;">
+                    <option value="ALL">All Cities (20)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container">
+            <h2 id="attractions-count-header" style="font-size: 1.6rem; margin-bottom: 2rem;">All Attractions</h2>
+            <div class="destinations-grid" id="all-attractions-grid"></div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const grid = document.getElementById('all-attractions-grid');
+            const searchInput = document.getElementById('attraction-search');
+            const cityFilter = document.getElementById('attraction-city-filter');
+            const countHeader = document.getElementById('attractions-count-header');
+
+            let allAttractions = [];
+            const dests = await API.getDestinations();
+
+            dests.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d.id;
+                opt.textContent = d.name;
+                cityFilter.appendChild(opt);
+
+                d.attractions.forEach(a => {
+                    allAttractions.push({ ...a, cityName: d.name, cityState: d.state });
+                });
+            });
+
+            function render(list) {
+                countHeader.textContent = `Showing Attractions (${list.length})`;
+                grid.innerHTML = list.map(a => `
+                    <div class="card">
+                        <div class="card-image-wrap">
+                            <img src="${a.image}" alt="${a.name}" loading="lazy" onerror="API.handleImageError(this, '${a.cityName}')">
+                            <span class="card-badge ${a.category.toLowerCase()}">${a.category}</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-city-state">
+                                <h3 class="card-title" style="font-size: 1.25rem;">${a.name}</h3>
+                                <span style="color: #ea580c; font-weight: 700;">★ ${a.rating}</span>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text-light); font-weight: 600; margin-bottom: 0.5rem;">📍 ${a.cityName}, ${a.cityState}</p>
+                            <p class="card-desc">${a.description}</p>
+                            <div class="card-footer" style="font-size: 0.82rem; color: var(--text-muted);">
+                                <span>🎟️ ${a.entryFee === 0 ? 'Free Entry' : '₹' + a.entryFee}</span>
+                                <a href="destination-details.html?id=${a.destinationId}" class="btn-explore" style="padding: 0.35rem 0.85rem; font-size: 0.8rem;">Explore City →</a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            function filter() {
+                const q = searchInput.value.toLowerCase().trim();
+                const city = cityFilter.value;
+                const filtered = allAttractions.filter(a => {
+                    if (city !== 'ALL' && a.destinationId !== city) return false;
+                    if (q.length > 0 && !`${a.name} ${a.category} ${a.cityName} ${a.description}`.toLowerCase().includes(q)) return false;
+                    return true;
+                });
+                render(filtered);
+            }
+
+            searchInput.addEventListener('input', filter);
+            cityFilter.addEventListener('change', filter);
+            render(allAttractions);
+        });
+    </script>
+</body>
+</html>

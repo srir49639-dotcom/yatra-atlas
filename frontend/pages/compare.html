@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Destinations | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+    <style>
+        .compare-selector-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2.25rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 3rem;
+        }
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1.5rem;
+            align-items: end;
+        }
+        .comparison-cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .dest-side-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .dest-side-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .dest-side-body {
+            padding: 1.75rem;
+        }
+        .comparison-meta-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .comparison-meta-table td {
+            padding: 0.65rem 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 0.92rem;
+        }
+        .comparison-meta-table td:first-child {
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        .comparison-meta-table td:last-child {
+            text-align: right;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .similarity-banner {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border: 1px solid #fed7aa;
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .sim-percentage {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary);
+            line-height: 1;
+        }
+        @media (max-width: 768px) {
+            .compare-grid {
+                grid-template-columns: 1fr;
+            }
+            .comparison-cards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="compare.html" class="nav-link active">Compare</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Smart Destination Comparison</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">COMPARE DESTINATIONS</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 1.5rem; max-width: 680px; margin-left: auto; margin-right: auto;">
+                Analyze two Indian destinations side-by-side to understand shared cultural themes, budget proximity, and regional highlights.
+            </p>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container" style="max-width: 1040px;">
+
+            <!-- Selector Box -->
+            <div class="compare-selector-card">
+                <div class="compare-grid">
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Select Destination A</label>
+                        <select id="compare-dest-a" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Select Destination B</label>
+                        <select id="compare-dest-b" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <button id="btn-compare" class="search-btn" style="height: 52px; width: 100%; min-width: 160px;">Compare</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Result Container -->
+            <div id="compare-results" style="display: none;">
+
+                <!-- Similarity Score Banner -->
+                <div class="similarity-banner">
+                    <div>
+                        <span class="tag" style="background: #fed7aa; color: #9a3412; font-size: 0.8rem; font-weight: 800;">Content Similarity Score</span>
+                        <h3 style="font-size: 1.6rem; margin: 0.6rem 0 0.4rem;" id="sim-title">Hyderabad vs Delhi</h3>
+                        <p style="color: #7c2d12; font-size: 0.95rem; margin: 0;" id="sim-themes">Loading shared themes...</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="sim-percentage" id="sim-score">85%</div>
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #9a3412; text-transform: uppercase;">Alignment Match</div>
+                    </div>
+                </div>
+
+                <!-- Side by Side Cards -->
+                <div class="comparison-cards-grid">
+                    <!-- Dest A -->
+                    <div class="dest-side-card" id="card-dest-a">
+                        <img id="img-dest-a" src="" alt="Destination A" class="dest-side-img">
+                        <div class="dest-side-body">
+                            <span class="tag" id="tag-dest-a">Heritage</span>
+                            <h3 style="font-size: 1.6rem; margin: 0.5rem 0;" id="title-dest-a">Hyderabad</h3>
+                            <p style="color: var(--text-muted); font-size: 0.88rem;" id="state-dest-a">Telangana</p>
+
+                            <table class="comparison-meta-table">
+                                <tr>
+                                    <td>Category</td>
+                                    <td id="cat-dest-a">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Avg Daily Budget</td>
+                                    <td id="budget-dest-a">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Best Time to Visit</td>
+                                    <td id="season-dest-a">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Key Landmarks</td>
+                                    <td id="attrs-dest-a">-</td>
+                                </tr>
+                            </table>
+
+                            <a id="link-dest-a" href="#" class="btn-explore" style="display: block; text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">View Full Guide</a>
+                        </div>
+                    </div>
+
+                    <!-- Dest B -->
+                    <div class="dest-side-card" id="card-dest-b">
+                        <img id="img-dest-b" src="" alt="Destination B" class="dest-side-img">
+                        <div class="dest-side-body">
+                            <span class="tag" id="tag-dest-b">Metropolitan</span>
+                            <h3 style="font-size: 1.6rem; margin: 0.5rem 0;" id="title-dest-b">Delhi</h3>
+                            <p style="color: var(--text-muted); font-size: 0.88rem;" id="state-dest-b">Delhi</p>
+
+                            <table class="comparison-meta-table">
+                                <tr>
+                                    <td>Category</td>
+                                    <td id="cat-dest-b">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Avg Daily Budget</td>
+                                    <td id="budget-dest-b">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Best Time to Visit</td>
+                                    <td id="season-dest-b">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Key Landmarks</td>
+                                    <td id="attrs-dest-b">-</td>
+                                </tr>
+                            </table>
+
+                            <a id="link-dest-b" href="#" class="btn-explore" style="display: block; text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">View Full Guide</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Summary Box -->
+                <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 2rem; box-shadow: var(--shadow-sm); margin-bottom: 2rem;">
+                    <h3 style="font-size: 1.35rem; margin-top: 0; margin-bottom: 1rem;">Comparison Summary & Recommendations</h3>
+                    <div id="compare-summary-text" style="line-height: 1.8; color: var(--text-main); font-size: 0.98rem;">
+                        Both destinations offer rich cultural explorations and regional immersion.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const selectA = document.getElementById('compare-dest-a');
+            const selectB = document.getElementById('compare-dest-b');
+            const btn = document.getElementById('btn-compare');
+            const resultBox = document.getElementById('compare-results');
+
+            const dests = await API.getDestinations();
+            dests.forEach(d => {
+                selectA.appendChild(new Option(`${d.name} (${d.state})`, d.id));
+                selectB.appendChild(new Option(`${d.name} (${d.state})`, d.id));
+            });
+
+            // Set initial defaults
+            const urlParams = new URLSearchParams(window.location.search);
+            selectA.value = urlParams.get('a') || 'hyderabad';
+            selectB.value = urlParams.get('b') || 'delhi';
+
+            async function performComparison() {
+                const idA = selectA.value;
+                const idB = selectB.value;
+
+                if (idA === idB) {
+                    alert('Please select two distinct destinations to compare.');
+                    return;
+                }
+
+                btn.disabled = true;
+                btn.textContent = 'Comparing...';
+
+                try {
+                    const res = await fetch(`/api/compare?destA=${encodeURIComponent(idA)}&destB=${encodeURIComponent(idB)}`);
+                    const data = await res.json();
+
+                    resultBox.style.display = 'block';
+
+                    document.getElementById('sim-title').textContent = `${data.destA.name} vs ${data.destB.name}`;
+                    document.getElementById('sim-score').textContent = `${Math.round(data.overallSimilarity * 100)}%`;
+                    document.getElementById('sim-themes').textContent = data.sharedThemes || 'Both destinations offer rich cultural heritage and regional highlights.';
+
+                    // Populate Dest A
+                    document.getElementById('img-dest-a').src = data.destA.image;
+                    document.getElementById('title-dest-a').textContent = data.destA.name;
+                    document.getElementById('state-dest-a').textContent = data.destA.state;
+                    document.getElementById('tag-dest-a').textContent = data.destA.category;
+                    document.getElementById('cat-dest-a').textContent = data.destA.category;
+                    document.getElementById('budget-dest-a').textContent = `₹${data.destA.avgDailyBudget}/day`;
+                    document.getElementById('season-dest-a').textContent = data.destA.bestTimeToVisit;
+                    document.getElementById('attrs-dest-a').textContent = `${data.destA.attractionsCount} Top Attractions`;
+                    document.getElementById('link-dest-a').href = `destination-details.html?id=${data.destA.id}`;
+
+                    // Populate Dest B
+                    document.getElementById('img-dest-b').src = data.destB.image;
+                    document.getElementById('title-dest-b').textContent = data.destB.name;
+                    document.getElementById('state-dest-b').textContent = data.destB.state;
+                    document.getElementById('tag-dest-b').textContent = data.destB.category;
+                    document.getElementById('cat-dest-b').textContent = data.destB.category;
+                    document.getElementById('budget-dest-b').textContent = `₹${data.destB.avgDailyBudget}/day`;
+                    document.getElementById('season-dest-b').textContent = data.destB.bestTimeToVisit;
+                    document.getElementById('attrs-dest-b').textContent = `${data.destB.attractionsCount} Top Attractions`;
+                    document.getElementById('link-dest-b').href = `destination-details.html?id=${data.destB.id}`;
+
+                    // Summary recommendation text
+                    const budgetDiff = Math.abs(data.destA.avgDailyBudget - data.destB.avgDailyBudget);
+                    let budgetNote = `Both destinations share a similar daily budget tier within ₹${budgetDiff}.`;
+                    if (budgetDiff > 1000) {
+                        const cheaper = data.destA.avgDailyBudget < data.destB.avgDailyBudget ? data.destA.name : data.destB.name;
+                        budgetNote = `${cheaper} is more economical by ₹${budgetDiff} per day.`;
+                    }
+
+                    document.getElementById('compare-summary-text').innerHTML = `
+                        <p><strong>Atmospheric Comparison:</strong> ${data.sharedThemes}</p>
+                        <p><strong>Budget & Accommodation:</strong> ${budgetNote}</p>
+                        <p><strong>Travel Recommendation:</strong> If you are seeking a <strong>${data.destA.category}</strong> experience, visit <strong>${data.destA.name}</strong> (${data.destA.bestTimeToVisit}). For a <strong>${data.destB.category}</strong> journey, head to <strong>${data.destB.name}</strong> (${data.destB.bestTimeToVisit}).</p>
+                    `;
+
+                    resultBox.scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Comparison error:', e);
+                } finally {
+                    btn.disabled = false;
+                    btn.textContent = 'Compare';
+                }
+            }
+
+            btn.addEventListener('click', performComparison);
+
+            if (selectA.value && selectB.value) {
+                performComparison();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Yatra Atlas Server",
+            "request": "launch",
+            "mainClass": "app.TravelGuideApp",
+            "projectName": "white"
+        },
+        {
+            "type": "java",
+            "name": "Run DSA-3 Test Suite",
+            "request": "launch",
+            "mainClass": "tests.DSATestSuite",
+            "projectName": "white"
+        }
+    ]
+}

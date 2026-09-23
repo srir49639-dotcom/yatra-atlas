@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Finder | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link active">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Smart Journey Routing</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">ROUTE FINDER</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Find the optimal intercity travel path between any two Indian destinations.</p>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container" style="max-width: 980px;">
+            
+            <!-- Route Input Form -->
+            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); margin-bottom: 3rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr auto; gap: 1.25rem; align-items: end;" id="route-inputs-grid">
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Starting Point</label>
+                        <select id="route-from" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Destination</label>
+                        <select id="route-to" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Priority</label>
+                        <select id="route-pref" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;">
+                            <option value="shortest">Shortest Distance</option>
+                            <option value="fastest">Fastest Travel Time</option>
+                            <option value="budget">Most Economical</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button id="btn-find-route" class="search-btn" style="height: 52px; width: 100%;">Find Route</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Result Area -->
+            <div id="route-result-card" style="display: none; background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-lg);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                    <div>
+                        <span class="tag" style="background: #dcfce7; color: #166534; font-size: 0.78rem;">Optimal Route Calculated</span>
+                        <h2 style="font-size: 2rem; margin-top: 0.35rem;" id="route-title">Hyderabad → Goa</h2>
+                    </div>
+                    <div style="display: flex; gap: 2rem; text-align: right;">
+                        <div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary);" id="route-dist-val">660 km</div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Total Distance</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: var(--text-main);" id="route-time-val">11 hrs</div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Est. Duration</div>
+                        </div>
+                        <div>
+                            <div style="font-size: 1.6rem; font-weight: 800; color: #059669;" id="route-cost-val">₹1,600</div>
+                            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Est. Fare</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.3rem; margin-bottom: 1.5rem;">Step-by-Step Travel Corridor Breakdown</h3>
+                <div class="timeline" id="route-timeline-steps"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const fromSelect = document.getElementById('route-from');
+            const toSelect = document.getElementById('route-to');
+            const prefSelect = document.getElementById('route-pref');
+            const btnFind = document.getElementById('btn-find-route');
+            const resultCard = document.getElementById('route-result-card');
+
+            // Load routable cities & landmarks
+            try {
+                const res = await fetch('/api/route/nodes');
+                const nodes = await res.json();
+                
+                const attrGroupFrom = document.createElement('optgroup');
+                attrGroupFrom.label = 'Iconic Attractions & Monuments';
+                const cityGroupFrom = document.createElement('optgroup');
+                cityGroupFrom.label = 'Major Indian Cities';
+
+                const attrGroupTo = document.createElement('optgroup');
+                attrGroupTo.label = 'Iconic Attractions & Monuments';
+                const cityGroupTo = document.createElement('optgroup');
+                cityGroupTo.label = 'Major Indian Cities';
+
+                nodes.forEach(n => {
+                    const label = n.type === 'Attraction' ? `${n.name} [${n.parentCityId.toUpperCase()}]` : `${n.name} (City Hub)`;
+                    const optFrom = new Option(label, n.id);
+                    const optTo = new Option(label, n.id);
+                    if (n.type === 'City') {
+                        cityGroupFrom.appendChild(optFrom);
+                        cityGroupTo.appendChild(optTo);
+                    } else {
+                        attrGroupFrom.appendChild(optFrom);
+                        attrGroupTo.appendChild(optTo);
+                    }
+                });
+
+                fromSelect.appendChild(attrGroupFrom);
+                fromSelect.appendChild(cityGroupFrom);
+                toSelect.appendChild(attrGroupTo);
+                toSelect.appendChild(cityGroupTo);
+            } catch (err) {
+                const dests = await API.getDestinations();
+                dests.forEach(d => {
+                    fromSelect.appendChild(new Option(`${d.name} (${d.state})`, d.id));
+                    toSelect.appendChild(new Option(`${d.name} (${d.state})`, d.id));
+                });
+            }
+
+            // Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            fromSelect.value = urlParams.get('from') || 'hyd-1';
+            toSelect.value = urlParams.get('to') || 'hyd-2';
+
+            async function calculateRoute() {
+                const from = fromSelect.value;
+                const to = toSelect.value;
+                const pref = prefSelect.value;
+
+                btnFind.disabled = true;
+                btnFind.textContent = 'Calculating...';
+
+                try {
+                    const res = await fetch(`/api/route?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&pref=${encodeURIComponent(pref)}`);
+                    const data = await res.json();
+
+                    resultCard.style.display = 'block';
+
+                    if (!data.reachable) {
+                        resultCard.innerHTML = `
+                            <div style="text-align: center; padding: 2rem;">
+                                <span class="tag" style="background: #fee2e2; color: #991b1b; font-size: 0.85rem;">Connection Notice</span>
+                                <h3 style="font-size: 1.5rem; margin: 1rem 0 0.5rem;">${data.fromName} → ${data.toName}</h3>
+                                <p style="color: var(--text-muted);">${data.message || 'No direct transit path found between the selected locations.'}</p>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    if (from === to || data.totalDistanceKm === 0) {
+                        resultCard.innerHTML = `
+                            <div style="text-align: center; padding: 2rem;">
+                                <span class="tag" style="background: #dcfce7; color: #166534; font-size: 0.85rem;">Current Location</span>
+                                <h3 style="font-size: 1.6rem; margin: 1rem 0 0.5rem;">${data.fromName}</h3>
+                                <p style="color: var(--text-muted);">${data.message || 'Source and destination are identical. You are already at this location.'}</p>
+                                <div style="display: inline-flex; gap: 2rem; margin-top: 1.5rem; background: var(--bg-alt); padding: 1rem 2rem; border-radius: var(--radius-md);">
+                                    <div><strong>0 km</strong> <div style="font-size: 0.75rem; color: var(--text-muted);">Distance</div></div>
+                                    <div><strong>0 mins</strong> <div style="font-size: 0.75rem; color: var(--text-muted);">Duration</div></div>
+                                    <div><strong>₹0</strong> <div style="font-size: 0.75rem; color: var(--text-muted);">Fare</div></div>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+
+                    const hours = Math.floor(data.totalTimeMinutes / 60);
+                    const mins = data.totalTimeMinutes % 60;
+                    const durationStr = hours > 0 ? `${hours}h ${mins}m` : `${mins} mins`;
+
+                    // Construct Route Found HTML
+                    const pathDisplay = data.pathCities && data.pathCities.length > 0 
+                        ? data.pathCities.join(' <span style="color: var(--primary); margin: 0 0.4rem;">↓</span> ') 
+                        : `${data.fromName} ↓ ${data.toName}`;
+
+                    let legsHtml = '';
+                    if (data.legs && data.legs.length > 0) {
+                        legsHtml = data.legs.map((leg, idx) => `
+                            <div class="timeline-step">
+                                <div class="timeline-dot"></div>
+                                <div style="background: var(--bg-alt); padding: 1.25rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.4rem;">
+                                        <h4 style="font-size: 1.05rem;">Corridor ${idx + 1}: ${leg.fromCity} ➔ ${leg.toCity}</h4>
+                                        <span style="font-weight: 700; color: var(--primary); font-size: 0.9rem;">${leg.distanceKm} km</span>
+                                    </div>
+                                    <div style="display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap;">
+                                        <span>⏱️ ${leg.timeMinutes >= 60 ? Math.floor(leg.timeMinutes / 60) + 'h ' + (leg.timeMinutes % 60) + 'm' : leg.timeMinutes + ' mins'}</span>
+                                        <span>💰 ₹${leg.costInr} approx fare</span>
+                                        <span>🚆 Transit: ${leg.mode}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+
+                    resultCard.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; margin-bottom: 2rem;">
+                            <div>
+                                <span class="tag" style="background: #dcfce7; color: #166534; font-size: 0.78rem;">Route Found</span>
+                                <h2 style="font-size: 1.85rem; margin-top: 0.35rem;">${data.fromName} → ${data.toName}</h2>
+                                <div style="font-size: 0.95rem; color: var(--text-muted); margin-top: 0.5rem; font-weight: 600;">
+                                    ${pathDisplay}
+                                </div>
+                            </div>
+                            <div style="display: flex; gap: 2rem; text-align: right;">
+                                <div>
+                                    <div style="font-size: 1.6rem; font-weight: 800; color: var(--primary);">${data.totalDistanceKm} km</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Distance</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.6rem; font-weight: 800; color: var(--text-main);">${durationStr}</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Estimated Time</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.6rem; font-weight: 800; color: #059669;">₹${data.totalCostInr}</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light);">Estimated Cost</div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 style="font-size: 1.25rem; margin-bottom: 1.5rem;">Step-by-Step Transit Route</h3>
+                        <div class="timeline">${legsHtml}</div>
+                    `;
+
+                    resultCard.scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Route error:', e);
+                } finally {
+                    btnFind.disabled = false;
+                    btnFind.textContent = 'Find Route';
+                }
+            }
+
+            btnFind.addEventListener('click', calculateRoute);
+
+            // Auto-trigger if query params present or default
+            if (urlParams.has('to') || fromSelect.value) {
+                calculateRoute();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yatra Atlas | Explore India. Plan Better. Travel Smarter.</title>
+    <meta name="description" content="Discover destinations, plan multi-city journeys, find shortest routes, and explore authentic Indian heritage, beaches, and mountains.">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components.css?v=3">
+    <link rel="stylesheet" href="css/responsive.css?v=3">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo" id="nav-brand">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+
+            <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle navigation">☰</button>
+
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="index.html" class="nav-link active" id="nav-home">Home</a></li>
+                    <li><a href="pages/destinations.html" class="nav-link" id="nav-destinations">Destinations</a></li>
+                    <li><a href="pages/attractions.html" class="nav-link" id="nav-attractions">Attractions</a></li>
+                    <li><a href="pages/hotels.html" class="nav-link" id="nav-hotels">Hotels</a></li>
+                    <li><a href="pages/restaurants.html" class="nav-link" id="nav-restaurants">Restaurants</a></li>
+                    <li><a href="pages/transportation.html" class="nav-link" id="nav-transport">Transportation</a></li>
+                    <li><a href="pages/route.html" class="nav-link" id="nav-route">Route Finder</a></li>
+                    <li><a href="pages/discover.html" class="nav-link" id="nav-discover">Discover</a></li>
+                    <li><a href="pages/about.html" class="nav-link" id="nav-about">About</a></li>
+                    <li><a href="pages/trip-planner.html" class="nav-link nav-cta" id="nav-plan">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero-section">
+        <div class="container">
+            <div class="hero-tag">✨ Curated Indian Travel Portal</div>
+            <h1 id="hero-title">EXPLORE <span>INDIA</span></h1>
+            <p class="hero-subtitle" id="hero-subtitle">
+                Discover destinations, plan journeys and find experiences worth travelling for.
+            </p>
+
+            <!-- Search Box -->
+            <div class="search-box-card" id="search-box-card">
+                <div class="search-input-group">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input type="text" id="main-search-input" class="search-input" placeholder="Where do you want to go? (e.g. Fort, Goa, Charminar, Beach, Taj Mahal)" autocomplete="off">
+                </div>
+                <button class="search-btn" id="main-search-btn">Search</button>
+            </div>
+
+            <!-- Fuzzy Typo Suggestion -->
+            <div class="did-you-mean-banner" id="did-you-mean-box">
+                Did you mean: <a id="did-you-mean-link">Charminar</a>?
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Search Results Dropdown/Overlay (if active) -->
+    <section class="section" id="search-results-section" style="display: none; padding-top: 2rem;">
+        <div class="container">
+            <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+                <span class="tag">Search Results</span>
+                <h2 id="search-results-title">Places Matching Your Search</h2>
+                <p id="search-results-count">Showing results</p>
+            </div>
+            <div class="destinations-grid" id="search-results-grid"></div>
+        </div>
+    </section>
+
+    <!-- Popular Destinations Section -->
+    <section class="section" id="popular-destinations-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Iconic Gateways</span>
+                <h2>Popular Destinations</h2>
+                <p>From ancient imperial citadels to tropical palm-fringed coastlines, explore the most sought-after travel escapes in India.</p>
+            </div>
+
+            <!-- Destination Cards -->
+            <div class="destinations-grid" id="popular-destinations-grid">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <div style="text-align: center; margin-top: 3.5rem;">
+                <a href="pages/destinations.html" class="search-btn" style="display: inline-block; text-decoration: none;" id="btn-view-all-destinations">View All 20 Destinations →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Experiences Section -->
+    <section class="section" style="background: var(--bg-alt);" id="experiences-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Immersive Themes</span>
+                <h2>Popular Experiences</h2>
+                <p>Choose your travel style and discover destinations tailored to what you love most.</p>
+            </div>
+
+            <div class="experiences-grid" id="experiences-grid">
+                <a href="pages/destinations.html?cat=Heritage" class="experience-card" id="exp-heritage">
+                    <div class="experience-icon">🏛️</div>
+                    <div class="experience-title">Heritage</div>
+                </a>
+                <a href="pages/destinations.html?cat=Beach" class="experience-card" id="exp-beach">
+                    <div class="experience-icon">🏖️</div>
+                    <div class="experience-title">Beaches</div>
+                </a>
+                <a href="pages/destinations.html?cat=Mountain" class="experience-card" id="exp-mountain">
+                    <div class="experience-icon">🏔️</div>
+                    <div class="experience-title">Mountains</div>
+                </a>
+                <a href="pages/restaurants.html" class="experience-card" id="exp-food">
+                    <div class="experience-icon">🍲</div>
+                    <div class="experience-title">Food & Cuisine</div>
+                </a>
+                <a href="pages/destinations.html?cat=Cultural" class="experience-card" id="exp-culture">
+                    <div class="experience-icon">🎭</div>
+                    <div class="experience-title">Culture</div>
+                </a>
+                <a href="pages/destinations.html?cat=Spiritual" class="experience-card" id="exp-adventure">
+                    <div class="experience-icon">🪔</div>
+                    <div class="experience-title">Spiritual & Sacred</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan Your Trip CTA -->
+    <section class="section" id="plan-trip-cta-section">
+        <div class="container">
+            <div class="cta-banner">
+                <div class="cta-content">
+                    <span class="tag" style="background: rgba(255,255,255,0.15); color: #fdba74;">Smart Journey Sequencer</span>
+                    <h2>Plan Your Trip</h2>
+                    <p>Build an itinerary around the places you want to see. Pick your starting city and favorite stops, and our engine calculates the optimal visiting sequence, route distances, and day-by-day budget.</p>
+                </div>
+                <div>
+                    <a href="pages/trip-planner.html" class="cta-btn" id="btn-start-planning">Start Planning →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discover Something New (Surprise Me) -->
+    <section class="section" style="padding-top: 1rem;" id="discover-section">
+        <div class="container">
+            <div class="surprise-box" id="surprise-box">
+                <span class="tag" style="background: white; color: var(--primary);">Instant Inspiration</span>
+                <h3>Discover Something New</h3>
+                <p>Not sure where to go? Let serendipity take the wheel. Discover an unexpected corner of India with a single tap.</p>
+                <button class="btn-surprise" id="btn-surprise-me">
+                    <span>✨</span>
+                    <span>Surprise Me</span>
+                </button>
+
+                <!-- Surprise Result Card -->
+                <div id="surprise-card" style="display: none; max-width: 580px; margin: 2rem auto 0; text-align: left; background: white; padding: 1.5rem; border-radius: var(--radius-md); box-shadow: var(--shadow-lg);">
+                    <div style="display: flex; gap: 1.5rem; align-items: center;" id="surprise-card-inner">
+                        <img id="surprise-img" src="" alt="Next destination" style="width: 130px; height: 130px; object-fit: cover; border-radius: var(--radius-sm);">
+                        <div>
+                            <span class="card-badge" id="surprise-category" style="position: static; display: inline-block; margin-bottom: 0.5rem;">Category</span>
+                            <h4 id="surprise-title" style="font-size: 1.4rem; font-family: var(--font-serif); margin-bottom: 0.25rem;">Destination</h4>
+                            <p id="surprise-desc" style="font-size: 0.88rem; margin-bottom: 0.75rem;">Description</p>
+                            <a id="surprise-link" href="#" class="btn-explore" style="display: inline-block;">Explore Now →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>YATRA ATLAS</h3>
+                    <p>Explore India. Plan better. Travel smarter. A comprehensive intelligent travel platform uncovering the wonders of the subcontinent.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>EXPLORE</h4>
+                    <ul>
+                        <li><a href="pages/destinations.html">All Destinations</a></li>
+                        <li><a href="pages/attractions.html">Attractions</a></li>
+                        <li><a href="pages/hotels.html">Hotels & Stays</a></li>
+                        <li><a href="pages/restaurants.html">Dining & Cuisine</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>PLANNING</h4>
+                    <ul>
+                        <li><a href="pages/trip-planner.html">Multi-City Planner</a></li>
+                        <li><a href="pages/route.html">Route Finder</a></li>
+                        <li><a href="pages/transportation.html">Transit Corridors</a></li>
+                        <li><a href="pages/discover.html">Surprise Discovery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>PORTAL</h4>
+                    <ul>
+                        <li><a href="pages/about.html">About Yatra Atlas</a></li>
+                        <li><a href="pages/destinations.html?cat=Heritage">Heritage Tours</a></li>
+                        <li><a href="pages/destinations.html?cat=Beach">Coastal Escapes</a></li>
+                        <li><a href="pages/destinations.html?cat=Mountain">Mountain Retreats</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div>
+                    <a href="pages/docs.html" class="footer-docs-link" id="footer-docs-link">Project Documentation</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

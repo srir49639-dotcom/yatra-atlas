@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Destinations | Yatra Atlas</title>
+    <meta name="description" content="Explore 20 iconic Indian destinations. Filter by state, category, daily budget, and travel style.">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header & Filter Controls -->
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Discover India</span>
+                <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">EXPLORE INDIA</h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Find handpicked destinations, historical marvels, serene beaches, and alpine retreats.</p>
+
+                <!-- Explore Search Box -->
+                <div class="search-box-card" style="box-shadow: var(--shadow-md);">
+                    <div class="search-input-group">
+                        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="text" id="explore-search-input" class="search-input" placeholder="Search destinations, attractions, hotels and experiences...">
+                    </div>
+                    <button class="search-btn" id="explore-search-btn">Search</button>
+                </div>
+            </div>
+
+            <!-- Filter Controls Bar -->
+            <div style="margin-top: 2.5rem; background: white; padding: 1.25rem 1.75rem; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 1.25rem; align-items: center; justify-content: space-between;">
+                <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+                    <!-- Category Filter -->
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Category</label>
+                        <select id="filter-category" style="padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.9rem; background: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                            <option value="ALL">All Categories</option>
+                            <option value="Heritage">Heritage</option>
+                            <option value="Beach">Beach</option>
+                            <option value="Mountain">Mountain</option>
+                            <option value="Spiritual">Spiritual</option>
+                            <option value="Metropolitan">Metropolitan</option>
+                            <option value="Cultural">Cultural</option>
+                        </select>
+                    </div>
+
+                    <!-- State Filter -->
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 0.25rem;">State</label>
+                        <select id="filter-state" style="padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.9rem; background: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                            <option value="ALL">All States</option>
+                        </select>
+                    </div>
+
+                    <!-- Budget Filter -->
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Daily Budget</label>
+                        <select id="filter-budget" style="padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.9rem; background: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                            <option value="ALL">All Budgets</option>
+                            <option value="BUDGET">Budget (Under ₹3,000)</option>
+                            <option value="MID">Mid-Range (₹3,000 - ₹4,000)</option>
+                            <option value="LUXURY">Premium (Above ₹4,000)</option>
+                        </select>
+                    </div>
+
+                    <!-- Travel Style -->
+                    <div>
+                        <label style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: var(--text-light); display: block; margin-bottom: 0.25rem;">Travel Style</label>
+                        <select id="filter-style" style="padding: 0.5rem 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.9rem; background: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                            <option value="ALL">All Styles</option>
+                            <option value="SOLO">Solo & Discovery</option>
+                            <option value="FAMILY">Family & Leisure</option>
+                            <option value="COUPLE">Couples & Romantic</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Reset Filters Button -->
+                <div>
+                    <button id="btn-reset-filters" style="background: none; color: var(--primary); font-weight: 700; font-size: 0.9rem; cursor: pointer; text-decoration: underline;">Reset Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Destinations Grid Section -->
+    <main class="section">
+        <div class="container">
+            <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 2rem;">
+                <h2 id="grid-header-count" style="font-size: 1.6rem;">All Destinations (20)</h2>
+                <span id="active-filter-badge" style="font-size: 0.85rem; color: var(--text-muted);">Showing verified gateways</span>
+            </div>
+
+            <div class="destinations-grid" id="explore-destinations-grid">
+                <!-- Dynamically loaded -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>YATRA ATLAS</h3>
+                    <p>Explore India. Plan better. Travel smarter. A comprehensive intelligent travel platform uncovering the wonders of the subcontinent.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>EXPLORE</h4>
+                    <ul>
+                        <li><a href="destinations.html">All Destinations</a></li>
+                        <li><a href="attractions.html">Attractions</a></li>
+                        <li><a href="hotels.html">Hotels & Stays</a></li>
+                        <li><a href="restaurants.html">Dining & Cuisine</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>PLANNING</h4>
+                    <ul>
+                        <li><a href="trip-planner.html">Multi-City Planner</a></li>
+                        <li><a href="route.html">Route Finder</a></li>
+                        <li><a href="transportation.html">Transit Corridors</a></li>
+                        <li><a href="discover.html">Surprise Discovery</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>PORTAL</h4>
+                    <ul>
+                        <li><a href="about.html">About Yatra Atlas</a></li>
+                        <li><a href="destinations.html?cat=Heritage">Heritage Tours</a></li>
+                        <li><a href="destinations.html?cat=Beach">Coastal Escapes</a></li>
+                        <li><a href="destinations.html?cat=Mountain">Mountain Retreats</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/destinations.js"></script>
+</body>
+</html>

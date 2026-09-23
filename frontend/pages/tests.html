@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automated Test Suite Dashboard | Yatra Atlas Academic</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+    <style>
+        .test-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .stat-box {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        .stat-num {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .stat-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-light);
+        }
+        .test-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+        .test-table th, .test-table td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .test-table th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .test-table tr:hover {
+            background: #f1f5f9;
+        }
+        .badge-pass {
+            background: #dcfce7;
+            color: #166534;
+            font-weight: 800;
+            font-size: 0.78rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            display: inline-block;
+        }
+        .badge-fail {
+            background: #fee2e2;
+            color: #991b1b;
+            font-weight: 800;
+            font-size: 0.78rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            display: inline-block;
+        }
+        .academic-nav-links {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .academic-nav-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 0.6rem 1.1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .academic-nav-btn.active, .academic-nav-btn:hover {
+            background: #0f172a;
+            color: white;
+            border-color: #0f172a;
+        }
+        .run-test-btn {
+            background: #059669;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.6rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .run-test-btn:hover {
+            background: #047857;
+        }
+        .run-test-btn:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body style="background: #f8fafc;">
+
+    <!-- Header -->
+    <header class="navbar" style="background: white;">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon" style="background: #0f172a;">DSA</div>
+                <span>YATRA ATLAS <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-light); text-transform: uppercase;">• Testing Suite</span></span>
+            </a>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="docs.html" class="btn-explore" style="font-size: 0.85rem; background: var(--bg-alt); color: var(--text-main); border: 1px solid var(--border);">Documentation</a>
+                <a href="../index.html" class="btn-explore" style="font-size: 0.85rem;">← Return to Travel Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Banner -->
+    <div style="background: #0f172a; color: white; padding: 3.5rem 0 2.5rem;">
+        <div class="container">
+            <span class="tag" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8;">Automated Regression & Academic Audit</span>
+            <h1 style="color: white; font-size: 2.6rem; margin: 0.5rem 0 0.75rem;">AUTOMATED TEST SUITE</h1>
+            <p style="color: #94a3b8; font-size: 1.1rem; max-width: 820px; margin-bottom: 1.5rem;">
+                Live programmatic verification of all 21 DSA algorithms and application services. All values are generated from actual test assertions executed in real-time on the Java backend.
+            </p>
+            <div class="academic-nav-links">
+                <a href="docs.html" class="academic-nav-btn">📖 DSA Feature & CO Mapping</a>
+                <a href="dsa-lab.html" class="academic-nav-btn">⚡ DSA Execution Lab</a>
+                <a href="benchmark.html" class="academic-nav-btn">📊 Performance Analysis</a>
+                <a href="tests.html" class="academic-nav-btn active">🧪 Automated Test Suite</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container" style="padding-top: 2.5rem; padding-bottom: 5rem; max-width: 1040px;">
+
+        <!-- Stats Overview Cards -->
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-num" id="stat-total" style="color: #0f172a;">-</div>
+                <div class="stat-label">Total Tests</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat-passed" style="color: #059669;">-</div>
+                <div class="stat-label">Passed</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat-failed" style="color: #dc2626;">0</div>
+                <div class="stat-label">Failed</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat-pct" style="color: #0284c7;">- %</div>
+                <div class="stat-label">Pass Percentage</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num" id="stat-time" style="color: #64748b; font-size: 1.8rem;">- ms</div>
+                <div class="stat-label">Total Duration</div>
+            </div>
+        </div>
+
+        <!-- Action & Filter Bar -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; background: white; padding: 1.25rem 1.75rem; border-radius: var(--radius-md); border: 1px solid var(--border); box-shadow: var(--shadow-sm);">
+            <div>
+                <span style="font-size: 0.95rem; font-weight: 700;">Filter by Category: </span>
+                <select id="filter-category" style="padding: 0.4rem 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border); font-size: 0.9rem; font-weight: 600;">
+                    <option value="ALL">All Categories</option>
+                    <option value="String (CO2)">String Algorithms (CO2)</option>
+                    <option value="DP (CO3)">Dynamic Programming (CO3)</option>
+                    <option value="Graph & Flow (CO4)">Graph & Flow (CO4)</option>
+                    <option value="Approximation (CO5)">Approximation (CO5)</option>
+                    <option value="Randomized (CO6)">Randomized (CO6)</option>
+                    <option value="Analytics">Analytics (Reduce & PrefixSum)</option>
+                    <option value="Services">Services Integration</option>
+                </select>
+            </div>
+            <button id="btn-run-tests" class="run-test-btn">▶ Re-run Live Test Suite</button>
+        </div>
+
+        <!-- Tests Table Card -->
+        <div class="test-card" style="padding: 0; overflow: hidden;">
+            <div style="overflow-x: auto;">
+                <table class="test-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 70px;">Status</th>
+                            <th style="width: 170px;">Category</th>
+                            <th>Test Description</th>
+                            <th style="width: 110px;">Duration (μs)</th>
+                            <th>Assertion Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="test-rows-body">
+                        <tr><td colspan="5" style="text-align: center; color: var(--text-muted); padding: 3rem;">Executing live automated test suite on server...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Automated DSA-3 Academic Test Suite.</div>
+                <div><a href="docs.html" class="footer-docs-link">Return to Academic Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentTestCases = [];
+
+        async function runTests() {
+            const btn = document.getElementById('btn-run-tests');
+            btn.disabled = true;
+            btn.textContent = 'Executing Tests...';
+
+            try {
+                const res = await fetch('/api/tests/run');
+                const data = await res.json();
+                currentTestCases = data.testCases || [];
+
+                document.getElementById('stat-total').textContent = data.totalTests;
+                document.getElementById('stat-passed').textContent = data.passed;
+                document.getElementById('stat-failed').textContent = data.failed;
+                document.getElementById('stat-pct').textContent = `${data.passPercentage}%`;
+                document.getElementById('stat-time').textContent = `${data.totalTimeMillis} ms`;
+
+                renderTable();
+            } catch (err) {
+                console.error('Test run failed:', err);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '▶ Re-run Live Test Suite';
+            }
+        }
+
+        function renderTable() {
+            const filter = document.getElementById('filter-category').value;
+            const tbody = document.getElementById('test-rows-body');
+
+            const filtered = (filter === 'ALL') 
+                ? currentTestCases 
+                : currentTestCases.filter(t => t.category === filter);
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem;">No tests matching selected category.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(t => `
+                <tr>
+                    <td><span class="${t.passed ? 'badge-pass' : 'badge-fail'}">${t.passed ? 'PASS' : 'FAIL'}</span></td>
+                    <td><span class="card-badge" style="position: static; font-size: 0.72rem;">${t.category}</span></td>
+                    <td><strong>${t.name}</strong></td>
+                    <td style="font-family: monospace; font-weight: 700; color: #0284c7;">${t.timeMicros.toLocaleString()} μs</td>
+                    <td style="color: var(--text-muted); font-size: 0.85rem;">${t.details}</td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('btn-run-tests').addEventListener('click', runTests);
+        document.getElementById('filter-category').addEventListener('change', renderTable);
+        document.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>

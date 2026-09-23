@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-City Trip Planner | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta active">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Smart Multi-City Itinerary</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">PLAN YOUR TRIP</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Build an optimized itinerary around all the places you want to see with day-by-day budget tracking.</p>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem; align-items: start;" id="planner-layout-grid">
+                
+                <!-- Form Settings Card -->
+                <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-md);">
+                    <h3 style="font-size: 1.35rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">Trip Parameters</h3>
+
+                    <!-- Starting City -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Start City (Origin)</label>
+                        <select id="plan-origin" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+
+                    <!-- Duration in Days -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Total Trip Duration</label>
+                        <select id="plan-days" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;">
+                            <option value="3">3 Days (Quick Getaway)</option>
+                            <option value="5" selected>5 Days (Standard Tour)</option>
+                            <option value="7">7 Days (Comprehensive)</option>
+                            <option value="10">10 Days (Grand Circuit)</option>
+                        </select>
+                    </div>
+
+                    <!-- Preference -->
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Travel Style</label>
+                        <select id="plan-pref" style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; background: var(--bg-main); font-weight: 600;">
+                            <option value="comfort" selected>Comfort (Balanced Pace)</option>
+                            <option value="budget">Budget Conscious</option>
+                            <option value="fastest">Fastest Transit</option>
+                        </select>
+                    </div>
+
+                    <!-- Destination Checkboxes -->
+                    <div style="margin-bottom: 2rem;">
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.6rem;">Select Cities to Include:</label>
+                        <div id="cities-checklist" style="max-height: 260px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem; display: grid; gap: 0.5rem; background: var(--bg-main);"></div>
+                    </div>
+
+                    <button id="btn-calculate-itinerary" class="search-btn" style="width: 100%; padding: 0.9rem; font-size: 1rem;">Generate Optimized Plan</button>
+                </div>
+
+                <!-- Itinerary Result Area -->
+                <div>
+                    <!-- Initial Placeholder State -->
+                    <div id="planner-empty-state" style="background: white; border: 2px dashed var(--border); border-radius: var(--radius-lg); padding: 4rem 2rem; text-align: center;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🗺️</div>
+                        <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Ready to Map Your Adventure</h3>
+                        <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto;">Select your starting city and destinations on the left, then click "Generate Optimized Plan" to calculate the shortest sequence and day-by-day metrics.</p>
+                    </div>
+
+                    <!-- Calculated Result -->
+                    <div id="planner-result" style="display: none;">
+                        <!-- Summary Cards -->
+                        <div style="background: linear-gradient(135deg, #1e293b, #0f172a); color: white; border-radius: var(--radius-lg); padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-lg);">
+                            <span class="tag" style="background: rgba(255,255,255,0.15); color: #fdba74;">Optimized Circuit</span>
+                            <h2 style="color: white; font-size: 1.85rem; margin: 0.5rem 0 1rem;" id="plan-sequence-title">Hyderabad ➔ Bengaluru ➔ Chennai ➔ Goa</h2>
+                            <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: 800; color: #fdba74;" id="plan-total-dist">1,780 km</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8;">Total Circuit Distance</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: 800; color: #38bdf8;" id="plan-total-cost">₹18,500</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8;">Estimated Trip Cost</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.5rem; font-weight: 800; color: #4ade80;" id="plan-total-days">5 Days</div>
+                                    <div style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8;">Trip Duration</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Day by Day Cards -->
+                        <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem;">Day-by-Day Journey Schedule</h3>
+                        <div id="itinerary-days-container" style="display: grid; gap: 1.25rem;"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const originSelect = document.getElementById('plan-origin');
+            const daysSelect = document.getElementById('plan-days');
+            const prefSelect = document.getElementById('plan-pref');
+            const checklist = document.getElementById('cities-checklist');
+            const btnCalc = document.getElementById('btn-calculate-itinerary');
+            const emptyState = document.getElementById('planner-empty-state');
+            const resultBox = document.getElementById('planner-result');
+
+            const dests = await API.getDestinations();
+            const defaultSelected = ['bengaluru', 'chennai', 'goa'];
+
+            dests.forEach(d => {
+                originSelect.appendChild(new Option(`${d.name} (${d.state})`, d.id));
+
+                const item = document.createElement('label');
+                item.style.display = 'flex';
+                item.style.alignItems = 'center';
+                item.style.gap = '0.5rem';
+                item.style.fontSize = '0.9rem';
+                item.style.cursor = 'pointer';
+
+                const isChecked = defaultSelected.includes(d.id);
+                item.innerHTML = `
+                    <input type="checkbox" value="${d.id}" class="dest-checkbox" ${isChecked ? 'checked' : ''}>
+                    <span>${d.name} (${d.category})</span>
+                `;
+                checklist.appendChild(item);
+            });
+
+            // Check URL query parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('origin')) originSelect.value = urlParams.get('origin');
+            if (urlParams.has('add')) {
+                const addId = urlParams.get('add');
+                const cb = checklist.querySelector(`input[value="${addId}"]`);
+                if (cb) cb.checked = true;
+            }
+
+            async function calculatePlan() {
+                const origin = originSelect.value;
+                const days = parseInt(daysSelect.value, 10);
+                const pref = prefSelect.value;
+
+                const selectedCheckboxes = [...checklist.querySelectorAll('.dest-checkbox:checked')].map(c => c.value);
+                // Exclude origin from destinations list
+                const destinations = selectedCheckboxes.filter(id => id !== origin);
+
+                if (destinations.length === 0) {
+                    alert('Please select at least 1 destination to visit.');
+                    return;
+                }
+
+                if (destinations.length > 10) {
+                    alert('Please select up to 10 destinations for exact trip optimization.');
+                    return;
+                }
+
+                btnCalc.disabled = true;
+                btnCalc.textContent = 'Optimizing Itinerary...';
+
+                try {
+                    const data = await API.planTrip(origin, destinations, days, pref);
+
+                    if (data.success === false) {
+                        alert(data.message || 'Please select up to 10 destinations for exact trip optimization.');
+                        return;
+                    }
+
+                    emptyState.style.display = 'none';
+                    resultBox.style.display = 'block';
+
+                    document.getElementById('plan-sequence-title').textContent = data.optimalSequence.join(' ➔ ');
+                    document.getElementById('plan-total-dist').textContent = `${data.totalDistanceKm} km`;
+                    document.getElementById('plan-total-cost').textContent = `₹${data.totalCostInr.toLocaleString()}`;
+                    document.getElementById('plan-total-days').textContent = `${data.totalDays} Days`;
+
+                    const container = document.getElementById('itinerary-days-container');
+                    container.innerHTML = data.schedule.map(day => `
+                        <div class="card" style="padding: 1.5rem; border-left: 4px solid var(--primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                                <div>
+                                    <span class="card-badge" style="position: static; margin-bottom: 0.4rem; display: inline-block;">Day ${day.dayNumber}</span>
+                                    <h4 style="font-size: 1.25rem;">${day.destinationName}</h4>
+                                    <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.2rem;">${day.action}</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 1.15rem; font-weight: 800; color: var(--primary);">₹${day.estimatedDailyCost}</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-light);">Cumulative: ₹${day.cumulativeCost}</div>
+                                </div>
+                            </div>
+                            <div style="background: var(--bg-alt); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-top: 0.75rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;">
+                                <span>🎯 <strong>Highlight:</strong> ${day.highlight}</span>
+                                <span style="color: var(--text-muted);">🛣️ Running Distance: <strong>${day.cumulativeKm} km</strong></span>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    resultBox.scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Plan error:', e);
+                } finally {
+                    btnCalc.disabled = false;
+                    btnCalc.textContent = 'Generate Optimized Plan';
+                }
+            }
+
+            btnCalc.addEventListener('click', calculatePlan);
+
+            // Auto-trigger if query params present
+            if (urlParams.has('add') || urlParams.has('origin')) {
+                calculatePlan();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transit Network & Capacity | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link active">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">National Transit Corridors</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">TRANSPORTATION & CAPACITY</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Analyze daily passenger seat availability and discover strategic regional travel gateway hubs.</p>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container">
+            
+            <!-- Section 1: Corridor Passenger Capacity Checker -->
+            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md); margin-bottom: 4rem;">
+                <div style="margin-bottom: 2rem;">
+                    <span class="tag" style="background: #e0f2fe; color: #0284c7;">Throughput Intelligence</span>
+                    <h2 style="font-size: 1.85rem; margin-top: 0.5rem;">Intercity Passenger Flow & Capacity Checker</h2>
+                    <p style="color: var(--text-muted);">Select two regional hubs to calculate maximum available daily seat capacity and identify critical bottleneck corridors.</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 1.5rem; align-items: end; margin-bottom: 2.5rem;" id="capacity-form-grid">
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Origin Region / Hub</label>
+                        <select id="cap-from-select" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <label style="font-size: 0.85rem; font-weight: 700; display: block; margin-bottom: 0.4rem;">Destination Region / Hub</label>
+                        <select id="cap-to-select" style="width: 100%; padding: 0.85rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 1rem; background: var(--bg-main); font-weight: 600;"></select>
+                    </div>
+                    <div>
+                        <button id="btn-check-capacity" class="search-btn" style="height: 52px; width: 100%;">Analyze Capacity</button>
+                    </div>
+                </div>
+
+                <!-- Capacity Result Display -->
+                <div id="capacity-result-box" style="display: none; background: #fffbf7; border: 1px solid #fed7aa; border-radius: var(--radius-md); padding: 2rem;">
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1.5rem; border-bottom: 1px solid #fed7aa; padding-bottom: 1.5rem; margin-bottom: 1.5rem;">
+                        <div>
+                            <span id="cap-status-pill" style="display: inline-block; background: #dcfce7; color: #15803d; font-weight: 700; font-size: 0.85rem; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); margin-bottom: 0.5rem;">Optimal Flow</span>
+                            <h3 id="cap-summary-title" style="font-size: 1.5rem;">Hyderabad → Goa</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 2rem; font-weight: 800; color: var(--primary);" id="cap-seats-val">2,400</div>
+                            <div style="font-size: 0.85rem; color: var(--text-light); font-weight: 600;">Max Daily Transit Seats</div>
+                        </div>
+                    </div>
+
+                    <h4 style="font-size: 1.05rem; margin-bottom: 1rem;">Critical Transit Corridors (Throughput Bottlenecks):</h4>
+                    <div id="bottlenecks-list" style="display: grid; gap: 0.75rem;"></div>
+                </div>
+            </div>
+
+            <!-- Section 2: Regional Network Optimizer -->
+            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: var(--shadow-md);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div>
+                        <span class="tag" style="background: #fef3c7; color: #b45309;">Network Strategy</span>
+                        <h2 style="font-size: 1.85rem; margin-top: 0.5rem;">Strategic Regional Gateway Hubs</h2>
+                        <p style="color: var(--text-muted); max-width: 700px;">Our network optimizer computes the minimal set of strategic gateway transit cities that monitor and connect every single highway, rail, and aviation route across India.</p>
+                    </div>
+                    <button id="btn-load-optimizer" class="btn-action-primary" style="font-size: 0.9rem;">Compute Gateway Hubs</button>
+                </div>
+
+                <div id="optimizer-result-box" style="margin-top: 2rem; display: none;">
+                    <div style="background: var(--bg-alt); padding: 1.5rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                        <p id="optimizer-desc" style="font-size: 1.05rem; color: var(--text-main); font-weight: 600;"></p>
+                    </div>
+
+                    <h4 style="font-size: 1.1rem; margin-bottom: 1rem;">Designated Regional Gateway Hubs:</h4>
+                    <div id="hubs-grid" style="display: flex; flex-wrap: wrap; gap: 0.75rem;"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const fromSelect = document.getElementById('cap-from-select');
+            const toSelect = document.getElementById('cap-to-select');
+            const btnCheck = document.getElementById('btn-check-capacity');
+            const resBox = document.getElementById('capacity-result-box');
+
+            const dests = await API.getDestinations();
+            dests.forEach(d => {
+                const opt1 = new Option(`${d.name} (${d.state})`, d.id);
+                const opt2 = new Option(`${d.name} (${d.state})`, d.id);
+                fromSelect.appendChild(opt1);
+                toSelect.appendChild(opt2);
+            });
+
+            fromSelect.value = 'hyderabad';
+            toSelect.value = 'goa';
+
+            async function checkCapacity() {
+                const from = fromSelect.value;
+                const to = toSelect.value;
+                if (from === to) {
+                    alert('Please select two distinct cities.');
+                    return;
+                }
+
+                btnCheck.disabled = true;
+                btnCheck.textContent = 'Calculating...';
+
+                try {
+                    const data = await API.getTransportCapacity(from, to);
+                    resBox.style.display = 'block';
+                    document.getElementById('cap-status-pill').textContent = data.capacityStatus;
+                    document.getElementById('cap-summary-title').textContent = `${data.sourceCity} ⇄ ${data.sinkCity} Corridor`;
+                    document.getElementById('cap-seats-val').textContent = data.maxDailySeatCapacity.toLocaleString() + ' seats';
+
+                    const list = document.getElementById('bottlenecks-list');
+                    if (data.criticalCorridors.length === 0) {
+                        list.innerHTML = `<p style="color: var(--text-muted);">No restricted bottleneck edges detected. Transit flow is fully unconstrained.</p>`;
+                    } else {
+                        list.innerHTML = data.criticalCorridors.map(c => `
+                            <div style="background: white; border: 1px solid var(--border); padding: 1rem; border-radius: var(--radius-sm); display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <strong style="color: var(--text-main); font-size: 1rem;">${c.fromCity} → ${c.toCity}</strong>
+                                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.2rem;">${c.impactNote}</div>
+                                </div>
+                                <span style="background: #fee2e2; color: #dc2626; font-weight: 700; font-size: 0.85rem; padding: 0.3rem 0.75rem; border-radius: var(--radius-full);">
+                                    Max ${c.capacitySeats} seats/day
+                                </span>
+                            </div>
+                        `).join('');
+                    }
+                    resBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } catch (e) {
+                    console.error('Capacity error:', e);
+                } finally {
+                    btnCheck.disabled = false;
+                    btnCheck.textContent = 'Analyze Capacity';
+                }
+            }
+
+            btnCheck.addEventListener('click', checkCapacity);
+
+            // Network Optimizer
+            const btnOpt = document.getElementById('btn-load-optimizer');
+            const optBox = document.getElementById('optimizer-result-box');
+            btnOpt.addEventListener('click', async () => {
+                btnOpt.disabled = true;
+                btnOpt.textContent = 'Optimizing...';
+                try {
+                    const opt = await API.getNetworkOptimizer();
+                    optBox.style.display = 'block';
+                    document.getElementById('optimizer-desc').textContent = `${opt.description} (Guaranteed within ${opt.approximationGuarantee}x of theoretical minimum).`;
+
+                    const hubsGrid = document.getElementById('hubs-grid');
+                    hubsGrid.innerHTML = opt.strategicHubs.map(h => `
+                        <div style="background: white; border: 1px solid #fdba74; padding: 0.75rem 1.25rem; border-radius: var(--radius-full); display: flex; align-items: center; gap: 0.5rem; box-shadow: var(--shadow-sm);">
+                            <span style="color: var(--primary); font-size: 1.1rem;">📍</span>
+                            <span style="font-weight: 700; color: var(--text-main);">${h}</span>
+                        </div>
+                    `).join('');
+                } catch (e) {
+                    console.error('Optimizer error:', e);
+                } finally {
+                    btnOpt.disabled = false;
+                    btnOpt.textContent = 'Compute Gateway Hubs';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Something New | Yatra Atlas</title>
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/components.css?v=3">
+    <link rel="stylesheet" href="../css/responsive.css?v=3">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="brand-logo">
+                <div class="logo-icon">YA</div>
+                <span>YATRA ATLAS</span>
+            </a>
+            <button class="mobile-toggle" id="mobile-toggle">☰</button>
+            <nav>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="../index.html" class="nav-link">Home</a></li>
+                    <li><a href="destinations.html" class="nav-link">Destinations</a></li>
+                    <li><a href="attractions.html" class="nav-link">Attractions</a></li>
+                    <li><a href="hotels.html" class="nav-link">Hotels</a></li>
+                    <li><a href="restaurants.html" class="nav-link">Restaurants</a></li>
+                    <li><a href="transportation.html" class="nav-link">Transportation</a></li>
+                    <li><a href="route.html" class="nav-link">Route Finder</a></li>
+                    <li><a href="discover.html" class="nav-link active">Discover</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="trip-planner.html" class="nav-link nav-cta">Plan My Trip</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div style="background: linear-gradient(180deg, #fff7ed 0%, var(--bg-main) 100%); padding: 3.5rem 0 2.5rem; border-bottom: 1px solid var(--border);">
+        <div class="container" style="text-align: center;">
+            <span class="tag" style="background: var(--primary-light); color: var(--primary); font-weight: 700; padding: 0.35rem 0.9rem; border-radius: var(--radius-full); font-size: 0.8rem; text-transform: uppercase;">Serendipitous Travel</span>
+            <h1 style="font-size: 2.85rem; margin: 0.75rem 0;">DISCOVER SOMETHING NEW</h1>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 2rem;">Unpredictable adventures, hidden gems, and unexpected vistas across India.</p>
+        </div>
+    </div>
+
+    <main class="section">
+        <div class="container" style="max-width: 800px; text-align: center;">
+            
+            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3.5rem 2rem; box-shadow: var(--shadow-md);">
+                <div style="font-size: 3.5rem; margin-bottom: 1rem;">🎲</div>
+                <h2 style="font-size: 2rem; margin-bottom: 0.75rem;">Feeling Spontaneous?</h2>
+                <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 520px; margin: 0 auto 2.5rem;">
+                    Step away from routine itineraries. Let our serendipity generator pick an authentic destination across the subcontinent.
+                </p>
+
+                <button id="btn-discover-generate" class="search-btn" style="padding: 1rem 2.8rem; font-size: 1.1rem; border-radius: var(--radius-full);">
+                    <span>✨</span> Surprise Me
+                </button>
+
+                <!-- Recommendation Display Card -->
+                <div id="discovery-card" style="display: none; margin-top: 3rem; text-align: left; background: var(--bg-main); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; box-shadow: var(--shadow-lg);">
+                    <div style="position: relative; height: 280px; overflow: hidden;">
+                        <img id="disc-img" src="" alt="Discovery" style="width: 100%; height: 100%; object-fit: cover;">
+                        <span id="disc-cat" class="card-badge" style="position: absolute; top: 1.25rem; left: 1.25rem;">Category</span>
+                    </div>
+                    <div style="padding: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                            <h3 id="disc-name" style="font-size: 1.8rem; font-family: var(--font-serif);">City Name</h3>
+                            <span id="disc-state" style="color: var(--text-light); font-weight: 700;">State, India</span>
+                        </div>
+                        <p id="disc-reason" style="font-style: italic; color: var(--primary); font-weight: 600; margin-bottom: 1rem;">"Why you should go"</p>
+                        <p id="disc-desc" style="color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem;">Description</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 1.25rem;">
+                            <div>
+                                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-light); font-weight: 700; display: block;">Avg Daily Budget</span>
+                                <span id="disc-budget" style="font-size: 1.25rem; font-weight: 800; color: var(--text-main);">₹3,500</span>
+                            </div>
+                            <a id="disc-link" href="#" class="search-btn" style="text-decoration: none; padding: 0.75rem 1.75rem;">Explore Full Guide →</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom" style="border: none; padding: 0;">
+                <div>© 2026 Yatra Atlas. Built with precision for Indian travellers.</div>
+                <div><a href="docs.html" class="footer-docs-link">Project Documentation</a></div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/api.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileToggle = document.getElementById('mobile-toggle');
+            const navMenu = document.getElementById('nav-menu');
+            if (mobileToggle && navMenu) mobileToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+            const btn = document.getElementById('btn-discover-generate');
+            const card = document.getElementById('discovery-card');
+
+            btn.addEventListener('click', async () => {
+                btn.disabled = true;
+                btn.innerHTML = '<span>⏳</span> Finding inspiration...';
+
+                try {
+                    const data = await API.discoverSurprise();
+                    card.style.display = 'block';
+
+                    const img = document.getElementById('disc-img');
+                    img.src = data.image;
+                    img.onerror = () => API.handleImageError(img, data.name);
+
+                    document.getElementById('disc-cat').textContent = data.category;
+                    document.getElementById('disc-name').textContent = data.name;
+                    document.getElementById('disc-state').textContent = `${data.state}, India`;
+                    document.getElementById('disc-reason').textContent = `"${data.recommendationReason}"`;
+                    document.getElementById('disc-desc').textContent = data.description;
+                    document.getElementById('disc-budget').textContent = `₹${data.avgDailyBudget}`;
+                    document.getElementById('disc-link').href = `destination-details.html?id=${data.id}`;
+
+                    card.scrollIntoView({ behavior: 'smooth' });
+                } catch (e) {
+                    console.error('Discover error:', e);
+                } finally {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>✨</span> Surprise Me Again';
+                }
+            });
+
+            // Automatically trigger one on initial open
+            btn.click();
+        });
+    </script>
+</body>
+</html>
